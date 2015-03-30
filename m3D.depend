@@ -1,13 +1,13 @@
 # depslib dependency file v1.0
-1416921678 source:c:\users\id5031\documents\m3d\lib_2d.c
+1416925278 source:c:\users\id5031\documents\m3d\lib_2d.c
 	"lib_surface.h"
 	"lib_2d.h"
 
-1427376297 c:\users\id5031\documents\m3d\lib_surface.h
+1427379897 c:\users\id5031\documents\m3d\lib_surface.h
 	<stdlib.h>
 	<SDL/SDL.h>
 
-1325738639 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl.h
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl.h
 	"SDL_main.h"
 	"SDL_stdinc.h"
 	"SDL_audio.h"
@@ -26,14 +26,14 @@
 	"begin_code.h"
 	"close_code.h"
 
-1325738639 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_main.h
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_main.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 	"begin_code.h"
 	"close_code.h"
 
-1325738639 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_stdinc.h
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_stdinc.h
 	"SDL_config.h"
 	<sys/types.h>
 	<stdio.h>
@@ -59,7 +59,7 @@
 	<stdlib.h>
 	"close_code.h"
 
-1326110987 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_config.h
+1326114587 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_config.h
 	"SDL_platform.h"
 	"SDL_config_dreamcast.h"
 	"SDL_config_macos.h"
@@ -69,16 +69,16 @@
 	"SDL_config_os2.h"
 	"SDL_config_minimal.h"
 
-1325738639 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_platform.h
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_platform.h
 
-1326110994 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_config_win32.h
+1326114594 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_config_win32.h
 	"SDL_platform.h"
 
-1326111000 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\begin_code.h
+1326114600 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\begin_code.h
 
-1325738639 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\close_code.h
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\close_code.h
 
-1325738639 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_audio.h
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_audio.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_endian.h"
@@ -88,24 +88,24 @@
 	"begin_code.h"
 	"close_code.h"
 
-1325738639 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_error.h
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_error.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1325738639 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_endian.h
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_endian.h
 	"SDL_stdinc.h"
 	<endian.h>
 	"begin_code.h"
 	"close_code.h"
 
-1325738639 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_mutex.h
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_mutex.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"begin_code.h"
 	"close_code.h"
 
-1325738639 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_thread.h
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_thread.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_mutex.h"
@@ -113,24 +113,24 @@
 	<process.h>
 	"close_code.h"
 
-1325738639 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_rwops.h
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_rwops.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"begin_code.h"
 	"close_code.h"
 
-1325738639 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_cdrom.h
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_cdrom.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"begin_code.h"
 	"close_code.h"
 
-1325738639 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_cpuinfo.h
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_cpuinfo.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1325738639 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_events.h
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_events.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_active.h"
@@ -141,83 +141,83 @@
 	"begin_code.h"
 	"close_code.h"
 
-1325738639 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_active.h
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_active.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"begin_code.h"
 	"close_code.h"
 
-1325738639 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_keyboard.h
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_keyboard.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_keysym.h"
 	"begin_code.h"
 	"close_code.h"
 
-1325738639 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_keysym.h
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_keysym.h
 
-1325738639 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_mouse.h
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_mouse.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_video.h"
 	"begin_code.h"
 	"close_code.h"
 
-1325738639 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_video.h
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_video.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_rwops.h"
 	"begin_code.h"
 	"close_code.h"
 
-1325738639 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_joystick.h
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_joystick.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"begin_code.h"
 	"close_code.h"
 
-1325738639 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_quit.h
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_quit.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 
-1325738639 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_loadso.h
-	"SDL_stdinc.h"
-	"SDL_error.h"
-	"begin_code.h"
-	"close_code.h"
-
-1325738639 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_timer.h
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_loadso.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"begin_code.h"
 	"close_code.h"
 
-1325738639 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_version.h
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_timer.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl_version.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1416914010 c:\users\id5031\documents\m3d\lib_2d.h
+1416917610 c:\users\id5031\documents\m3d\lib_2d.h
 	"lib_surface.h"
 
-1427218312 source:c:\users\id5031\documents\m3d\lib_3d.c
+1427221912 source:c:\users\id5031\documents\m3d\lib_3d.c
 	"lib_surface.h"
 	"lib_3d.h"
 	"lib_2d.h"
 	"lib_mat.h"
 	<math.h>
 
-1427312304 c:\users\id5031\documents\m3d\lib_3d.h
+1427315904 c:\users\id5031\documents\m3d\lib_3d.h
 	"lib_surface.h"
 
-1416919672 c:\users\id5031\documents\m3d\lib_mat.h
+1416923272 c:\users\id5031\documents\m3d\lib_mat.h
 
-1427135679 source:c:\users\id5031\documents\m3d\lib_mat.c
+1427139279 source:c:\users\id5031\documents\m3d\lib_mat.c
 	"lib_3d.h"
 	"lib_mat.h"
 	<stdio.h>
 
-1427376831 source:c:\users\id5031\documents\m3d\lib_objet3d.c
+1427747299 source:c:\users\id5031\documents\m3d\lib_objet3d.c
 	<assert.h>
 	<math.h>
 	<time.h>
@@ -226,14 +226,14 @@
 	"lib_mat.h"
 	"lib_surface.h"
 
-1427225711 c:\users\id5031\documents\m3d\lib_objet3d.h
+1427743617 c:\users\id5031\documents\m3d\lib_objet3d.h
 	"lib_surface.h"
 	"lib_3d.h"
 
-1405598875 source:c:\users\id5031\documents\m3d\lib_surface.c
+1405602475 source:c:\users\id5031\documents\m3d\lib_surface.c
 	"lib_surface.h"
 
-1427379090 source:c:\users\id5031\documents\m3d\prog.c
+1427746258 source:c:\users\id5031\documents\m3d\prog.c
 	<stdio.h>
 	<unistd.h>
 	<math.h>

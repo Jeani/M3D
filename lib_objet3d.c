@@ -6,6 +6,7 @@
 #include "lib_mat.h"
 #include "lib_surface.h"
 
+const double PHI = (1+sqrt(5))/2;
 
 t_maillon* __cree_maillon(t_triangle3d *face, Uint32 couleur)
 {
@@ -63,12 +64,12 @@ t_objet3d* parallelepipede(double lx, double ly, double lz)
 	tab_points[6] = definirPoint3d(lx,0,lz);
 	tab_points[7] = definirPoint3d(0,0,lz);
 
-    //face de devant
+    //face avant
     t = definirTriangle3d(tab_points[0],tab_points[1],tab_points[2]);
     __insere_tete(pt_objet,__cree_maillon(t,echelle_de_couleur(30)));
     t = definirTriangle3d(tab_points[0],tab_points[2],tab_points[3]);
     __insere_tete(pt_objet,__cree_maillon(t,echelle_de_couleur(30)));
-    //triangles ayant 2pts commun avec la face de devant
+    //triangles ayant 2pts commun avec la face avant
     t= definirTriangle3d(tab_points[0],tab_points[1],tab_points[6]);
     __insere_tete(pt_objet,__cree_maillon(t,echelle_de_couleur(210)));
     t= definirTriangle3d(tab_points[0],tab_points[3],tab_points[4]);
@@ -77,7 +78,7 @@ t_objet3d* parallelepipede(double lx, double ly, double lz)
     __insere_tete(pt_objet,__cree_maillon(t,echelle_de_couleur(210)));
     t= definirTriangle3d(tab_points[5],tab_points[2],tab_points[3]);
     __insere_tete(pt_objet,__cree_maillon(t,echelle_de_couleur(210)));
-    //triangles ayant 2pts commun avec la face de derrière
+    //triangles ayant 2pts commun avec la face arrière
     t= definirTriangle3d(tab_points[0],tab_points[6],tab_points[7]);
     __insere_tete(pt_objet,__cree_maillon(t,echelle_de_couleur(210)));
     t= definirTriangle3d(tab_points[0],tab_points[4],tab_points[7]);
@@ -144,7 +145,6 @@ t_objet3d* rubiks(double l)
     t_objet3d *otmp = NULL;
     t_point3d *origine = definirPoint3d(0,0,0);
     Uint32 c[9];
-    int i;
     srand(time(NULL));
 
     pt_objet = objet_vide();
@@ -235,13 +235,158 @@ t_objet3d* rubiks(double l)
     return pt_objet;
 }
 
-t_objet3d* sphere(double r, double nlat, double nlong)
+t_objet3d* tetraedre(double a)
 {
 	t_objet3d *pt_objet = NULL;
+    t_point3d *tab_points[4];
+    t_triangle3d *t = NULL;
+
+    pt_objet = objet_vide();
+
+    tab_points[0] = definirPoint3d(0,0,0);
+	tab_points[1] = definirPoint3d(a,0,0);
+	tab_points[2] = definirPoint3d(a/2,a*sqrt(3)/2,0);
+	tab_points[3] = definirPoint3d(a/2,a*sqrt(3)/6,a*sqrt(6)/3);
+
+    // Base
+    t = definirTriangle3d(tab_points[0],tab_points[1],tab_points[2]);
+    __insere_tete(pt_objet,__cree_maillon(t,RC_BLEU));
+    // Faces latérales
+    t = definirTriangle3d(tab_points[0],tab_points[1],tab_points[3]);
+    __insere_tete(pt_objet,__cree_maillon(t,RC_VERT));
+    t = definirTriangle3d(tab_points[1],tab_points[2],tab_points[3]);
+    __insere_tete(pt_objet,__cree_maillon(t,RC_JAUNE));
+    t = definirTriangle3d(tab_points[0],tab_points[2],tab_points[3]);
+    __insere_tete(pt_objet,__cree_maillon(t,ROUGEF));
+
+	return pt_objet;
+}
+
+t_objet3d* icosaedre(double a)
+{
+	t_objet3d *pt_objet = NULL;
+    t_point3d *tab_points[12];
+    t_triangle3d *t = NULL;
+    double d1 = a/2;
+    double d2 = a* PHI /2;
+
+    pt_objet = objet_vide();
+
+    tab_points[0] = definirPoint3d(d1,d2,0);
+	tab_points[1] = definirPoint3d(0,d1,d2);
+	tab_points[2] = definirPoint3d(d2,0,d1);
+	tab_points[3] = definirPoint3d(-d1,d2,0);
+	tab_points[4] = definirPoint3d(0,-d1,d2);
+	tab_points[5] = definirPoint3d(d2,0,-d1);
+	tab_points[6] = definirPoint3d(d1,-d2,0);
+	tab_points[7] = definirPoint3d(0,d1,-d2);
+	tab_points[8] = definirPoint3d(-d2,0,d1);
+	tab_points[9] = definirPoint3d(-d1,-d2,0);
+	tab_points[10] = definirPoint3d(0,-d1,-d2);
+	tab_points[11] = definirPoint3d(-d2,0,-d1);
+
+	// Avant
+    t = definirTriangle3d(tab_points[7],tab_points[10],tab_points[11]);
+    __insere_tete(pt_objet,__cree_maillon(t,RC_BLEU));
+    t = definirTriangle3d(tab_points[7],tab_points[10],tab_points[5]);
+    __insere_tete(pt_objet,__cree_maillon(t,RC_VERT));
+    // Faces couronne avant
+    t = definirTriangle3d(tab_points[0],tab_points[5],tab_points[7]);
+    __insere_tete(pt_objet,__cree_maillon(t,RC_BLANC));
+    t = definirTriangle3d(tab_points[5],tab_points[6],tab_points[10]);
+    __insere_tete(pt_objet,__cree_maillon(t,RC_JAUNE));
+    t = definirTriangle3d(tab_points[3],tab_points[7],tab_points[11]);
+    __insere_tete(pt_objet,__cree_maillon(t,RC_VERT));
+    t = definirTriangle3d(tab_points[9],tab_points[10],tab_points[11]);
+    __insere_tete(pt_objet,__cree_maillon(t,RC_JAUNE));
+    t = definirTriangle3d(tab_points[0],tab_points[3],tab_points[7]);
+    __insere_tete(pt_objet,__cree_maillon(t,ROUGEF));
+    t = definirTriangle3d(tab_points[6],tab_points[9],tab_points[10]);
+    __insere_tete(pt_objet,__cree_maillon(t,ROUGEF));
+    // Faces latérales
+    t = definirTriangle3d(tab_points[3],tab_points[8],tab_points[11]);
+    __insere_tete(pt_objet,__cree_maillon(t,RC_VERT));
+    t = definirTriangle3d(tab_points[11],tab_points[8],tab_points[9]);
+    __insere_tete(pt_objet,__cree_maillon(t,RC_JAUNE));
+    t = definirTriangle3d(tab_points[0],tab_points[2],tab_points[5]);
+    __insere_tete(pt_objet,__cree_maillon(t,RC_ORANGE));
+    t = definirTriangle3d(tab_points[2],tab_points[5],tab_points[6]);
+    __insere_tete(pt_objet,__cree_maillon(t,RC_ORANGE));
+    // Faces couronne arrière
+    t = definirTriangle3d(tab_points[0],tab_points[1],tab_points[3]);
+    __insere_tete(pt_objet,__cree_maillon(t,RC_VERT));
+    t = definirTriangle3d(tab_points[4],tab_points[6],tab_points[9]);
+    __insere_tete(pt_objet,__cree_maillon(t,RC_BLANC));
+    t = definirTriangle3d(tab_points[1],tab_points[2],tab_points[0]);
+    __insere_tete(pt_objet,__cree_maillon(t,RC_ORANGE));
+    t = definirTriangle3d(tab_points[1],tab_points[8],tab_points[3]);
+    __insere_tete(pt_objet,__cree_maillon(t,RC_JAUNE));
+    t = definirTriangle3d(tab_points[4],tab_points[2],tab_points[6]);
+    __insere_tete(pt_objet,__cree_maillon(t,ROUGEF));
+    t = definirTriangle3d(tab_points[4],tab_points[8],tab_points[9]);
+    __insere_tete(pt_objet,__cree_maillon(t,RC_BLEU));
+    // Font
+    t = definirTriangle3d(tab_points[1],tab_points[4],tab_points[2]);
+    __insere_tete(pt_objet,__cree_maillon(t,RC_BLEU));
+    t = definirTriangle3d(tab_points[1],tab_points[4],tab_points[8]);
+    __insere_tete(pt_objet,__cree_maillon(t,RC_BLANC));
+
+	return pt_objet;
+}
+
+t_objet3d* __transfo_face(t_maillon *pt_maillon,double r)
+{
+    /*
+      Le but est de prendre le milieu de chaque côté du triangle
+      et de projeter ces points sur la sphère circonscrite de l'icosaèdre
+      ensuite on crée les 4 nouveaux triangles à l'intérieur de l'ancien.
+    */
+	t_objet3d *pt_objet = NULL;
+	t_triangle3d *t = NULL;
+	t_point3d *tab[6];
+	double norme;
 
 	pt_objet = objet_vide();
+	tab[0] = pt_maillon->face->abc[0];
+	tab[2] = pt_maillon->face->abc[1];
+	tab[4] = pt_maillon->face->abc[2];
 
-	// TODO
+	norme = sqrt(pow((tab[0]->xyzt[0]+tab[2]->xyzt[0])/2,2)+pow((tab[0]->xyzt[1]+tab[2]->xyzt[1])/2,2)+pow((tab[0]->xyzt[2]+tab[2]->xyzt[2])/2,2));
+    tab[1] = definirPoint3d(r*(tab[0]->xyzt[0]+tab[2]->xyzt[0])/2/norme,r*(tab[0]->xyzt[1]+tab[2]->xyzt[1])/2/norme,r*(tab[0]->xyzt[2]+tab[2]->xyzt[2])/2/norme);
+    tab[3] = definirPoint3d(r*(tab[2]->xyzt[0]+tab[4]->xyzt[0])/2/norme,r*(tab[2]->xyzt[1]+tab[4]->xyzt[1])/2/norme,r*(tab[2]->xyzt[2]+tab[4]->xyzt[2])/2/norme);
+    tab[5] = definirPoint3d(r*(tab[4]->xyzt[0]+tab[0]->xyzt[0])/2/norme,r*(tab[4]->xyzt[1]+tab[0]->xyzt[1])/2/norme,r*(tab[4]->xyzt[2]+tab[0]->xyzt[2])/2/norme);
+
+	t = definirTriangle3d(tab[0],tab[1],tab[5]);
+    __insere_tete(pt_objet,__cree_maillon(t,echelle_de_couleur(rand()%1275)));
+    t = definirTriangle3d(tab[1],tab[2],tab[3]);
+    __insere_tete(pt_objet,__cree_maillon(t,echelle_de_couleur(rand()%1275)));
+    t = definirTriangle3d(tab[3],tab[4],tab[5]);
+    __insere_tete(pt_objet,__cree_maillon(t,echelle_de_couleur(rand()%1275)));
+    t = definirTriangle3d(tab[1],tab[3],tab[5]);
+    __insere_tete(pt_objet,__cree_maillon(t,echelle_de_couleur(rand()%1275)));
+
+	return pt_objet;
+}
+
+t_objet3d* sphere(double r)
+{
+	t_objet3d *pt_objet = NULL;
+    t_maillon *pt_maillon;
+    int i;
+
+	pt_objet = objet_vide();
+	// On part d'un icosaèdre...
+    pt_objet = icosaedre(r*2/sqrt(2+PHI));
+    // ...puis on divise les triangles en 4 (à chaque passage de boucle)
+    for (i=0;i<4;i++) { // /!\ pb de temps de calcul à partir de i<6
+        pt_maillon = pt_objet->tete;
+        pt_objet = objet_vide();
+        while (pt_maillon != NULL) {
+            composerObjet3d(pt_objet,__transfo_face(pt_maillon,r));
+            libererTriangle3d(pt_maillon->face);
+            pt_maillon = pt_maillon->pt_suiv;
+        }
+    }
 
 	return pt_objet;
 }
@@ -316,11 +461,14 @@ void libererObjet3d(t_objet3d *o)
 
 t_maillon *__separer(t_maillon *pt_maillon)
 {
+    /* La moitié des maillons reste pointée par le pointeur donné en paramètre,
+       l'autre moitié est pointée par la pointeur que retourne la fonction */
     t_maillon * pt_maillon_tmp;
 
     if (pt_maillon == NULL || pt_maillon->pt_suiv == NULL) {
         return NULL;
     } else {
+        // On sépare les maillons pairs/impairs
         pt_maillon_tmp = pt_maillon->pt_suiv;
         pt_maillon->pt_suiv = pt_maillon_tmp->pt_suiv;
         pt_maillon_tmp->pt_suiv = __separer(pt_maillon_tmp->pt_suiv);
@@ -346,12 +494,16 @@ t_maillon *__fusion (t_maillon * pt_maillon1, t_maillon * pt_maillon2)
 
 void __trier_maillons (t_maillon ** ppt_maillon)
 {
+    // Principe du tri fusion sur une liste chainée
     t_maillon * pt_maillon_tmp;
 
     if (*ppt_maillon != NULL && (*ppt_maillon)->pt_suiv != NULL) {
+        // On sépare la liste en deux
         pt_maillon_tmp = __separer(*ppt_maillon);
+        // On trie les deux sous listes
         __trier_maillons(ppt_maillon);
         __trier_maillons(&pt_maillon_tmp);
+        // On fusionne les deux sous listes triées
         *ppt_maillon = __fusion(*ppt_maillon,pt_maillon_tmp);
     }
 
@@ -360,6 +512,7 @@ void __trier_maillons (t_maillon ** ppt_maillon)
 void __trier_objet(t_objet3d *pt_objet)
 {
     if (pt_objet != NULL && pt_objet->est_trie == false) {
+        // Les triangles sont triés suivant les zmoyen décroissants
         __trier_maillons(&pt_objet->tete);
         pt_objet->est_trie = true;
     }
@@ -368,6 +521,7 @@ void __trier_objet(t_objet3d *pt_objet)
 void dessinerObjet3dAux(t_surface *surface,t_maillon *pt_maillon)
 {
     if (pt_maillon != NULL) {
+        // On dessine les triangles dans l'ordre de la liste
         remplirTriangle3d(surface,pt_maillon->face,pt_maillon->couleur);
         dessinerObjet3dAux(surface,pt_maillon->pt_suiv);
     }
@@ -377,8 +531,10 @@ void dessinerObjet3d(t_surface *surface, t_objet3d* pt_objet)
 {
 	if (pt_objet != NULL ) {
         if (!pt_objet->est_trie) {
+            // On trie l'objet si il n'est pas déjà trié
             __trier_objet(pt_objet);
         }
+        // Ensuite on le dessine
         dessinerObjet3dAux(surface,pt_objet->tete);
     }
 }

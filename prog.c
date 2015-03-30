@@ -18,13 +18,14 @@ int main(int argc,char** argv)
     int cpt = 0;
     int timestart;
     char buf[50];
+    double PHI = (1+sqrt(5))/2;
 
 
 //    t_point2d *p1 = definirPoint2d(10,50), *p2 = definirPoint2d(100,240), *p3 = definirPoint2d(50,300);
 //    t_triangle2d *t1 = definirTriangle2d(p1, p2, p3);
 
    t_point3d *p10 = definirPoint3d(200,200,100), *p20 = definirPoint3d(375,200,25), *p30 = definirPoint3d(450,300,50), *p = definirPoint3d(300,200,0), *p2 = definirPoint3d(400,300,100);
-    t_point3d *p11 = definirPoint3d(200,200,0), *p21 = definirPoint3d(375,200,-25), *p31 = definirPoint3d(450,300,-50);
+    t_point3d *p11 = definirPoint3d(200,200,0), *p21 = definirPoint3d(375,200,-25), *p31 = definirPoint3d(450,300,-50), *pi = definirPoint3d(300,300,0);
    t_triangle3d *t10 = definirTriangle3d(p, p20, p30), *t11 = definirTriangle3d(p,p21,p31);
 
 //    t_point3d *origine = definirPoint3d(0,0,0), *vecteur;
@@ -56,22 +57,27 @@ int main(int argc,char** argv)
     //__insere_tete(o10,__cree_maillon(t10,echelle_de_couleur(210)));
     //__insere_tete(o10,__cree_maillon(t11,echelle_de_couleur(30)));
 
-    o10 = rubiks(200);
-    translationObjet3d(o10,p);
+    o10 = sphere(200);
+    //infoMaillon(pfile,o10->tete);
+    //o11 = __transfo_face(o10->tete,100*sqrt(2+PHI));
+    //infoMaillon(pfile,o11->tete);
+    //translationObjet3d(o11,pi);
+    translationObjet3d(o10,pi);
     dessinerObjet3d(surface, o10);
-    //remplirTriangle3d(surface,t10,VERTF);
+   // remplirTriangle3d(surface,o10->tete->face,VERTF);
     majEcran(surface);
     pause();
     //infoTriangle(pfile,t11);
 
-    while (1) {
+    while (i<1000) {
         effacerFenetre(surface, 0);
-        rotationObjet3d(o10,p2,1.5,1,2);
+        rotationObjet3d(o10,pi,1.5,1,2);
         //infoTriangle(pfile,t11);
         dessinerObjet3d(surface, o10);
         majEcran(surface);
+        //pause();
         SDL_Delay(1000/50);
-        //i++;
+        i++;
     }
 
 
