@@ -38,26 +38,29 @@ int main(int argc,char** argv)
     int lx = 50;
     int ly = 80;
     int lz = 150;
-    Uint32 c[9];
+    Uint32 c[6];
 
     SDL_Init(SDL_INIT_VIDEO);
     surface=creerFenetre(RX,RY);
     timestart = SDL_GetTicks();
 
-    c[0] = echelle_de_couleur(0);
-    c[4] = echelle_de_couleur(100);
-    c[8] = echelle_de_couleur(200);
-    c[1] = echelle_de_couleur(300);
-    c[5] = echelle_de_couleur(400);
-    c[6] = echelle_de_couleur(500);
-    c[2] = echelle_de_couleur(600);
-    c[3] = echelle_de_couleur(700);
-    c[7] = echelle_de_couleur(800);
+    c[0] = RC_BLANC;
+    c[4] = RC_ROUGE;
+    //c[8] = echelle_de_couleur(200);
+    c[1] = RC_BLEU;
+    c[5] = RC_VERT;
+   // c[6] = echelle_de_couleur(500);
+    c[2] = RC_JAUNE;
+    c[3] = RC_ORANGE;
+    //c[7] = echelle_de_couleur(800);
 
     //__insere_tete(o10,__cree_maillon(t10,echelle_de_couleur(210)));
     //__insere_tete(o10,__cree_maillon(t11,echelle_de_couleur(30)));
 
-    o10 = sphere(200);
+    o10 = sapin(200,100);
+    //o11 = copierObjet3d(o10);
+    //libererObjet3d(o10);
+    //o10 = rubiks(200);
     //infoMaillon(pfile,o10->tete);
     //o11 = __transfo_face(o10->tete,100*sqrt(2+PHI));
     //infoMaillon(pfile,o11->tete);

@@ -42,6 +42,9 @@
 #define RC_JAUNE  0x00FFD500
 #define RC_BLANC  0x00FFFFFF
 
+#define VERT_SAPIN 0x00009933
+#define TRONC 0x00663300
+
 /* pour affichage avec %s dans printf, exemple :
  * printf("couleur = %s\n", COULEUR(valeur_numerique));
  */

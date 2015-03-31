@@ -47,14 +47,16 @@ t_objet3d *camera()
 	return objet_vide();
 }
 
-t_objet3d* parallelepipede(double lx, double ly, double lz)
+t_objet3d* parallelepipede(double lx, double ly, double lz, Uint32 C[6])
 {
 	t_objet3d *pt_objet = NULL;
 	t_point3d *tab_points[8];
 	t_triangle3d *t = NULL;
+	int i;
 
 	pt_objet = objet_vide();
 
+    // On place tous les sommets du parallélépipède dans le tableau
 	tab_points[0] = definirPoint3d(0,0,0);
 	tab_points[1] = definirPoint3d(lx,0,0);
 	tab_points[2] = definirPoint3d(lx,ly,0);
@@ -66,32 +68,37 @@ t_objet3d* parallelepipede(double lx, double ly, double lz)
 
     //face avant
     t = definirTriangle3d(tab_points[0],tab_points[1],tab_points[2]);
-    __insere_tete(pt_objet,__cree_maillon(t,echelle_de_couleur(30)));
+    __insere_tete(pt_objet,__cree_maillon(t,C[0]));
     t = definirTriangle3d(tab_points[0],tab_points[2],tab_points[3]);
-    __insere_tete(pt_objet,__cree_maillon(t,echelle_de_couleur(30)));
+    __insere_tete(pt_objet,__cree_maillon(t,C[0]));
     //triangles ayant 2pts commun avec la face avant
     t= definirTriangle3d(tab_points[0],tab_points[1],tab_points[6]);
-    __insere_tete(pt_objet,__cree_maillon(t,echelle_de_couleur(210)));
+    __insere_tete(pt_objet,__cree_maillon(t,C[2]));
     t= definirTriangle3d(tab_points[0],tab_points[3],tab_points[4]);
-    __insere_tete(pt_objet,__cree_maillon(t,echelle_de_couleur(210)));
+    __insere_tete(pt_objet,__cree_maillon(t,C[4]));
     t= definirTriangle3d(tab_points[5],tab_points[1],tab_points[2]);
-    __insere_tete(pt_objet,__cree_maillon(t,echelle_de_couleur(210)));
+    __insere_tete(pt_objet,__cree_maillon(t,C[5]));
     t= definirTriangle3d(tab_points[5],tab_points[2],tab_points[3]);
-    __insere_tete(pt_objet,__cree_maillon(t,echelle_de_couleur(210)));
+    __insere_tete(pt_objet,__cree_maillon(t,C[3]));
     //triangles ayant 2pts commun avec la face arrière
     t= definirTriangle3d(tab_points[0],tab_points[6],tab_points[7]);
-    __insere_tete(pt_objet,__cree_maillon(t,echelle_de_couleur(210)));
+    __insere_tete(pt_objet,__cree_maillon(t,C[2]));
     t= definirTriangle3d(tab_points[0],tab_points[4],tab_points[7]);
-    __insere_tete(pt_objet,__cree_maillon(t,echelle_de_couleur(210)));
+    __insere_tete(pt_objet,__cree_maillon(t,C[4]));
     t= definirTriangle3d(tab_points[5],tab_points[1],tab_points[6]);
-    __insere_tete(pt_objet,__cree_maillon(t,echelle_de_couleur(210)));
+    __insere_tete(pt_objet,__cree_maillon(t,C[5]));
     t= definirTriangle3d(tab_points[5],tab_points[3],tab_points[4]);
-    __insere_tete(pt_objet,__cree_maillon(t,echelle_de_couleur(210)));
+    __insere_tete(pt_objet,__cree_maillon(t,C[3]));
     //face arrière
     t= definirTriangle3d(tab_points[5],tab_points[6],tab_points[7]);
-    __insere_tete(pt_objet,__cree_maillon(t,echelle_de_couleur(520)));
+    __insere_tete(pt_objet,__cree_maillon(t,C[1]));
     t= definirTriangle3d(tab_points[5],tab_points[4],tab_points[7]);
-    __insere_tete(pt_objet,__cree_maillon(t,echelle_de_couleur(520)));
+    __insere_tete(pt_objet,__cree_maillon(t,C[1]));
+
+    // On libère les points sommets du parallélépipède
+    for (i=0;i<8;i++) {
+        free(tab_points[i]);
+    }
 
 	return pt_objet;
 }
@@ -101,6 +108,7 @@ t_objet3d* carre(double l, Uint32 c)
     t_objet3d *pt_objet = NULL;
     t_point3d *tab_points[4];
     t_triangle3d *t = NULL;
+    int i;
 
     pt_objet = objet_vide();
 
@@ -113,6 +121,11 @@ t_objet3d* carre(double l, Uint32 c)
     __insere_tete(pt_objet,__cree_maillon(t,c));
     t = definirTriangle3d(tab_points[0],tab_points[2],tab_points[3]);
     __insere_tete(pt_objet,__cree_maillon(t,c));
+
+    // On libère les points sommets du carré
+    for (i=0;i<4;i++) {
+        free(tab_points[i]);
+    }
 
     return pt_objet;
 }
@@ -128,8 +141,11 @@ t_objet3d* face(double l, Uint32 c[9])
             col = 0;
             lin++;
         }
+        // On crée un carré de la couleur voulue
         otmp = carre(l/3,c[i]);
+        // On le place
         translationObjet3d(otmp,definirPoint3d(col*l/3,lin*l/3,0));
+        // On l'ajoute à la face
         composerObjet3d(pt_objet,otmp);
         col++;
     }
@@ -145,7 +161,6 @@ t_objet3d* rubiks(double l)
     t_objet3d *otmp = NULL;
     t_point3d *origine = definirPoint3d(0,0,0);
     Uint32 c[9];
-    srand(time(NULL));
 
     pt_objet = objet_vide();
     otmp = objet_vide();
@@ -232,6 +247,8 @@ t_objet3d* rubiks(double l)
     translationObjet3d(otmp,definirPoint3d(0,0,l));
     composerObjet3d(pt_objet,otmp);
 
+    free(origine);
+
     return pt_objet;
 }
 
@@ -240,6 +257,7 @@ t_objet3d* tetraedre(double a)
 	t_objet3d *pt_objet = NULL;
     t_point3d *tab_points[4];
     t_triangle3d *t = NULL;
+    int i;
 
     pt_objet = objet_vide();
 
@@ -259,6 +277,11 @@ t_objet3d* tetraedre(double a)
     t = definirTriangle3d(tab_points[0],tab_points[2],tab_points[3]);
     __insere_tete(pt_objet,__cree_maillon(t,ROUGEF));
 
+    // On libère les points somments du tetraèdre
+    for (i=0;i<4;i++) {
+        free(tab_points[i]);
+    }
+
 	return pt_objet;
 }
 
@@ -269,6 +292,7 @@ t_objet3d* icosaedre(double a)
     t_triangle3d *t = NULL;
     double d1 = a/2;
     double d2 = a* PHI /2;
+    int i;
 
     pt_objet = objet_vide();
 
@@ -331,6 +355,11 @@ t_objet3d* icosaedre(double a)
     t = definirTriangle3d(tab_points[1],tab_points[4],tab_points[8]);
     __insere_tete(pt_objet,__cree_maillon(t,RC_BLANC));
 
+    // On libère les 12 points sommets de l'icosaèdre
+    for (i=0;i<12;i++) {
+        free(tab_points[i]);
+    }
+
 	return pt_objet;
 }
 
@@ -338,13 +367,14 @@ t_objet3d* __transfo_face(t_maillon *pt_maillon,double r)
 {
     /*
       Le but est de prendre le milieu de chaque côté du triangle
-      et de projeter ces points sur la sphère circonscrite de l'icosaèdre
-      ensuite on crée les 4 nouveaux triangles à l'intérieur de l'ancien.
+      et de projeter ces points sur la sphère circonscrite de l'objet
+      ensuite on crée les 4 nouveaux triangles contenus à l'intérieur de l'ancien.
     */
 	t_objet3d *pt_objet = NULL;
 	t_triangle3d *t = NULL;
 	t_point3d *tab[6];
 	double norme;
+	int i;
 
 	pt_objet = objet_vide();
 	tab[0] = pt_maillon->face->abc[0];
@@ -365,26 +395,37 @@ t_objet3d* __transfo_face(t_maillon *pt_maillon,double r)
     t = definirTriangle3d(tab[1],tab[3],tab[5]);
     __insere_tete(pt_objet,__cree_maillon(t,echelle_de_couleur(rand()%1275)));
 
+    // On libère l'ancien triangle
+    libererTriangle3d(pt_maillon->face);
+    // Et les points du tableau
+    for (i=0;i<6;i++) {
+        free(tab[i]);
+    }
+
 	return pt_objet;
 }
 
-t_objet3d* sphere(double r)
+t_objet3d* sphere(double r, int n)
 {
 	t_objet3d *pt_objet = NULL;
     t_maillon *pt_maillon;
+    t_maillon *pt_maillon_free;
     int i;
 
 	pt_objet = objet_vide();
 	// On part d'un icosaèdre...
     pt_objet = icosaedre(r*2/sqrt(2+PHI));
     // ...puis on divise les triangles en 4 (à chaque passage de boucle)
-    for (i=0;i<4;i++) { // /!\ pb de temps de calcul à partir de i<6
+    for (i=0;i<n%5;i++) { // /!\ pb de temps de calcul à partir de i<5
         pt_maillon = pt_objet->tete;
         pt_objet = objet_vide();
         while (pt_maillon != NULL) {
+            pt_maillon_free = pt_maillon;
             composerObjet3d(pt_objet,__transfo_face(pt_maillon,r));
             libererTriangle3d(pt_maillon->face);
             pt_maillon = pt_maillon->pt_suiv;
+            // On libère l'ancien maillon
+            free(pt_maillon_free);
         }
     }
 
@@ -401,6 +442,104 @@ t_objet3d* sphere_amiga(double r, double nlat, double nlong)
 
 
 	return pt_objet;
+}
+
+t_objet3d* sapin(double h, double l)
+{
+	t_objet3d *pt_objet = NULL;
+	t_objet3d *otmp = NULL;
+	t_objet3d *boule = sphere(h/32,3);
+	t_point3d *tab[9];
+	t_point3d *pt_point_tmp;
+    t_triangle3d *t = NULL;
+    Uint32 c[6];
+    int i;
+
+	pt_objet = objet_vide();
+	otmp = objet_vide();
+
+    // Sommet + Branches
+    tab[0] = definirPoint3d(0,0,h);
+    tab[1] = definirPoint3d(-l/4,0,3*h/4);
+    tab[2] = definirPoint3d(l/4,0,3*h/4);
+
+    tab[3] = definirPoint3d(0,0,7*h/8);
+    tab[4] = definirPoint3d(-3*l/8,0,h/2);
+    tab[5] = definirPoint3d(3*l/8,0,h/2);
+
+    tab[6] = definirPoint3d(0,0,5*h/8);
+    tab[7] = definirPoint3d(-l/2,0,h/4);
+    tab[8] = definirPoint3d(l/2,0,h/4);
+
+    // Ajout branches
+	 t = definirTriangle3d(tab[0],tab[1],tab[2]);
+    __insere_tete(pt_objet,__cree_maillon(t,VERT_SAPIN));
+    t = definirTriangle3d(tab[3],tab[4],tab[5]);
+    __insere_tete(pt_objet,__cree_maillon(t,VERT_SAPIN));
+    t = definirTriangle3d(tab[6],tab[7],tab[8]);
+    __insere_tete(pt_objet,__cree_maillon(t,VERT_SAPIN));
+
+    // Ajout boules
+    otmp = copierObjet3d(boule);
+    pt_point_tmp = definirPoint3d(-l/4,0,3*h/4-h/32);
+    translationObjet3d(otmp,pt_point_tmp);
+    free(pt_point_tmp);
+    composerObjet3d(pt_objet,otmp);
+    otmp = copierObjet3d(boule);
+    pt_point_tmp = definirPoint3d(l/4,0,3*h/4-h/32);
+    translationObjet3d(otmp,pt_point_tmp);
+    free(pt_point_tmp);
+    composerObjet3d(pt_objet,otmp);
+    otmp = copierObjet3d(boule);
+    pt_point_tmp = definirPoint3d(-3*l/8,0,h/2-h/32);
+    translationObjet3d(otmp,pt_point_tmp);
+    free(pt_point_tmp);
+    composerObjet3d(pt_objet,otmp);
+    otmp = copierObjet3d(boule);
+    pt_point_tmp = definirPoint3d(3*l/8,0,h/2-h/32);
+    translationObjet3d(otmp,pt_point_tmp);
+    free(pt_point_tmp);
+    composerObjet3d(pt_objet,otmp);
+    otmp = copierObjet3d(boule);
+    pt_point_tmp = definirPoint3d(-l/2,0,h/4-h/32);
+    translationObjet3d(otmp,pt_point_tmp);
+    free(pt_point_tmp);
+    composerObjet3d(pt_objet,otmp);
+    otmp = copierObjet3d(boule);
+    pt_point_tmp = definirPoint3d(l/2,0,h/4-h/32);
+    translationObjet3d(otmp,pt_point_tmp);
+    free(pt_point_tmp);
+    composerObjet3d(pt_objet,otmp);
+
+    // Ajout de la 3eme dimension
+    otmp = copierObjet3d(pt_objet);
+    pt_point_tmp = definirPoint3d(0,0,0);
+    rotationObjet3d(otmp,pt_point_tmp,0,0,-90);
+    free(pt_point_tmp);
+    composerObjet3d(pt_objet,otmp);
+
+    // Ajout du tronc
+    for (i=0;i<6;i++) {
+        c[i] = TRONC;
+    }
+    otmp = parallelepipede(h/16,h/16,h/4,c);
+    pt_point_tmp = definirPoint3d(-h/32,-h/32,0);
+    translationObjet3d(otmp,pt_point_tmp);
+    free(pt_point_tmp);
+    composerObjet3d(pt_objet,otmp);
+
+    // Réorienttion de l'arbre
+    pt_point_tmp = definirPoint3d(0,0,0);
+    rotationObjet3d(pt_objet,pt_point_tmp,90,0,0);
+    free(pt_point_tmp);
+
+    // On libère les points du tableau
+    for (i=0;i<9;i++) {
+        free(tab[i]);
+    }
+
+	return pt_objet;
+
 }
 
 t_objet3d* arbre(double lx, double ly, double lz)
@@ -429,8 +568,15 @@ t_objet3d* damier(double lx, double lz, double nx, double nz)
 t_objet3d *copierObjet3d(t_objet3d *o) // attention, effectue une copie mirroir
 {
 	t_objet3d *n = objet_vide();
+	t_maillon *pt_maillon; // Parcourt la liste de maillons
 
-	// TODO
+	if (o != NULL) {
+        pt_maillon = o->tete;
+        while (pt_maillon != NULL) { // /!\ 2
+            __insere_tete(n,__cree_maillon(copierTriangle3d(pt_maillon->face),pt_maillon->couleur)); // On insère en tête de n un nouveau maillon identique à celui pointé par pt_maillon
+            pt_maillon = pt_maillon->pt_suiv;
+        }
+	}
 
 	return n;
 }
@@ -450,12 +596,24 @@ void composerObjet3d(t_objet3d* o, t_objet3d* o2) /* o = o+o2, o2 ne signifiera 
             o->est_trie = o->est_trie && o2->est_trie && zmoyen(pt_maillon->face)>=zmoyen((o2->tete)->face);
             pt_maillon->pt_suiv = o2->tete;
         }
+        free(o2);
     }
 }
 
 void libererObjet3d(t_objet3d *o)
 {
-	// TODO
+    t_maillon *pt_maillon;
+    t_maillon *pt_maillon_to_free;
+	if (o != NULL) {
+        pt_maillon = o->tete;
+        while (pt_maillon != NULL) {
+            pt_maillon_to_free = pt_maillon;
+            libererTriangle3d(pt_maillon->face);
+            pt_maillon = pt_maillon->pt_suiv;
+            free(pt_maillon_to_free);
+        }
+        free(o);
+	}
 
 }
 

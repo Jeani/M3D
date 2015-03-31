@@ -3,7 +3,7 @@
 	"lib_surface.h"
 	"lib_2d.h"
 
-1427379897 c:\users\id5031\documents\m3d\lib_surface.h
+1427833071 c:\users\id5031\documents\m3d\lib_surface.h
 	<stdlib.h>
 	<SDL/SDL.h>
 
@@ -217,7 +217,7 @@
 	"lib_mat.h"
 	<stdio.h>
 
-1427747299 source:c:\users\id5031\documents\m3d\lib_objet3d.c
+1427837387 source:c:\users\id5031\documents\m3d\lib_objet3d.c
 	<assert.h>
 	<math.h>
 	<time.h>
@@ -226,14 +226,14 @@
 	"lib_mat.h"
 	"lib_surface.h"
 
-1427743617 c:\users\id5031\documents\m3d\lib_objet3d.h
+1427837394 c:\users\id5031\documents\m3d\lib_objet3d.h
 	"lib_surface.h"
 	"lib_3d.h"
 
 1405602475 source:c:\users\id5031\documents\m3d\lib_surface.c
 	"lib_surface.h"
 
-1427746258 source:c:\users\id5031\documents\m3d\prog.c
+1427831708 source:c:\users\id5031\documents\m3d\prog.c
 	<stdio.h>
 	<unistd.h>
 	<math.h>
