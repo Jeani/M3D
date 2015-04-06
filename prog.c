@@ -57,8 +57,8 @@ int main(int argc,char** argv)
     //__insere_tete(o10,__cree_maillon(t10,echelle_de_couleur(210)));
     //__insere_tete(o10,__cree_maillon(t11,echelle_de_couleur(30)));
 
-    o10 = sapin(200,100);
-    //o11 = copierObjet3d(o10);
+    o10 = sphere_amiga(300,8,16);
+    //o11 = sapin(200,100);
     //libererObjet3d(o10);
     //o10 = rubiks(200);
     //infoMaillon(pfile,o10->tete);
@@ -66,7 +66,9 @@ int main(int argc,char** argv)
     //infoMaillon(pfile,o11->tete);
     //translationObjet3d(o11,pi);
     translationObjet3d(o10,pi);
+    //translationObjet3d(o11,pi);
     dessinerObjet3d(surface, o10);
+    //dessinerObjet3d(surface, o11);
    // remplirTriangle3d(surface,o10->tete->face,VERTF);
     majEcran(surface);
     pause();
@@ -74,12 +76,14 @@ int main(int argc,char** argv)
 
     while (i<1000) {
         effacerFenetre(surface, 0);
-        rotationObjet3d(o10,pi,1.5,1,2);
+        rotationObjet3d(o10,pi,2,1.5,1);
+        //rotationObjet3d(o11,pi,0,0,0.1);
         //infoTriangle(pfile,t11);
         dessinerObjet3d(surface, o10);
+        //dessinerObjet3d(surface, o11);
         majEcran(surface);
         //pause();
-        SDL_Delay(1000/50);
+        SDL_Delay(1000/60);
         i++;
     }
 

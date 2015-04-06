@@ -435,11 +435,43 @@ t_objet3d* sphere(double r, int n)
 t_objet3d* sphere_amiga(double r, double nlat, double nlong)
 {
 	t_objet3d *pt_objet = NULL;
+	t_triangle3d *t = NULL;
+	t_point3d *tab[4];
+	int i,j;
+	Uint32 c;
+	double theta_i1,theta_i2,phi_j1,phi_j2;
 
 	pt_objet = objet_vide();
 
-	// TODO
+	for (i=0;i<nlat;i++) {
+        for (j=0;j<nlong;j++) {
 
+            theta_i1 = M_PI*(i/nlat)-M_PI/2;
+            phi_j1 = 2*M_PI*(j/nlong)-M_PI;
+            theta_i2 = M_PI*((i+1)/nlat)-M_PI/2;
+            phi_j2 = 2*M_PI*((j+1)/nlong)-M_PI;
+
+            tab[0] = definirPoint3d(r*cos(theta_i1)*cos(phi_j1),r*cos(theta_i1)*sin(phi_j1),r*sin(theta_i1));
+            tab[1] = definirPoint3d(r*cos(theta_i1)*cos(phi_j2),r*cos(theta_i1)*sin(phi_j2),r*sin(theta_i1));
+            tab[2] = definirPoint3d(r*cos(theta_i2)*cos(phi_j1),r*cos(theta_i2)*sin(phi_j1),r*sin(theta_i2));
+            tab[3] = definirPoint3d(r*cos(theta_i2)*cos(phi_j2),r*cos(theta_i2)*sin(phi_j2),r*sin(theta_i2));
+
+            if (i%2 == j%2) {
+                c = ROUGEC;
+            } else {
+                c = BLANC;
+            }
+            if (i!=0) {
+                t = definirTriangle3d(tab[0],tab[1],tab[2]);
+                __insere_tete(pt_objet,__cree_maillon(t,c));
+            }
+            if (i!=nlat-1) {
+                t = definirTriangle3d(tab[1],tab[2],tab[3]);
+                __insere_tete(pt_objet,__cree_maillon(t,c));
+            }
+
+        }
+	}
 
 	return pt_objet;
 }
