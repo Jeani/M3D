@@ -22,9 +22,11 @@ bool estVide (t_scene* pt_scene);
 
 double __distance (t_point3d * n, t_point3d *centre_camera, t_point3d *centre_objet);
 
- // void transformationScene (t_scene* pt_scene, t_objet3d * pt_objet);
+void rotationObjet3dScene(t_scene* pt_scene, t_objet3d* pt_objet, t_point3d *centre_rotation, float degreX, float degreY, float degreZ);
 
 void insererScene (t_scene* pt_scene, t_objet3d * pt_objet);
+
+void supprimerScene (t_scene* pt_scene, t_objet3d * pt_objet);
 
 void affiche_scene (t_surface *surface, t_scene* pt_scene);
 

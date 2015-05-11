@@ -4,10 +4,6 @@
 #include "lib_surface.h"
 #include "lib_3d.h"
 
-typedef enum {
-	false=0, true
-} t_bool;
-
 typedef struct __liste3d t_maillon;
 
 struct __liste3d

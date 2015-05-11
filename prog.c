@@ -25,13 +25,13 @@ int main(int argc,char** argv)
 //    t_point2d *p1 = definirPoint2d(10,50), *p2 = definirPoint2d(100,240), *p3 = definirPoint2d(50,300);
 //    t_triangle2d *t1 = definirTriangle2d(p1, p2, p3);
 
-   t_point3d *p10 = definirPoint3d(200,200,100), *p20 = definirPoint3d(375,200,25), *p30 = definirPoint3d(450,300,50), *p = definirPoint3d(300,200,0), *p2 = definirPoint3d(400,300,100);
-    t_point3d *p11 = definirPoint3d(200,200,0), *p21 = definirPoint3d(375,200,-25), *p31 = definirPoint3d(450,300,-50), *pi = definirPoint3d(100,100,100), *pj = definirPoint3d(20,20,20);
+   t_point3d *p10 = definirPoint3d(200,200,100), *p20 = definirPoint3d(375,200,25), *p30 = definirPoint3d(-50,0,50), *p = definirPoint3d(300,200,0), *p2 = definirPoint3d(400,300,100);
+    t_point3d *p11 = definirPoint3d(200,200,0), *p21 = definirPoint3d(375,200,-25), *p31 = definirPoint3d(-100,-50,-50), *pi = definirPoint3d(100,100,100), *pj = definirPoint3d(75,75,115);
    t_triangle3d *t10 = definirTriangle3d(p, p20, p30), *t11 = definirTriangle3d(p,p21,p31);
     t_point3d *centre10, *centre11, *vect;
 
 //    t_point3d *origine = definirPoint3d(0,0,0), *vecteur;
-     t_objet3d *o10 = objet_vide(), *o11 = objet_vide();
+     t_objet3d *o10 = objet_vide(), *o11 = objet_vide(), *o12 = objet_vide(), *o13 = objet_vide(), *o14 = objet_vide(), *o15 = objet_vide();
      t_maillon * pt_maillon;
      t_scene * scene = scene_vide();
 
@@ -61,38 +61,45 @@ int main(int argc,char** argv)
     //o10 = sapin(200,100);
     //libererObjet3d(o10);
     vect = definirPoint3d(-1,-1.5,0);
-    o10 = damier(300,400,8,10);
-   // translationObjet3d(o10,pj);
-   // insererScene(scene,o10);
+    o10 = sphere(50,2);
+    o11 = carre(50,RC_ORANGE);
+    o12 = parallelepipede(50,70,1000,c);
+    o13 = sphere(70,2);
+    o14 = rubiks(40);
+    o15 = tetraedre(60);
 
-    //o11 = sphere(50,2);
-    centre10 = centreObjet3d(o10);
-    //infoMaillon(pfile,o10->tete);
-    //infoMaillon(pfile,o11->tete);
-    //translationObjet3d(o11,pi);
-    //insererScene(scene,o11);
-    //centre11 = centreObjet3d(o11);
-   dessinerObjet3d(surface, o10);
-       // dessinerObjet3d(surface, o11);
+    translationObjet3d(o10,pj);
+    insererScene(scene,o10);
+
+    translationObjet3d(o11,pi);
+    insererScene(scene,o11);
+
+    translationObjet3d(o12,p10);
+    insererScene(scene,o12);
+
+    translationObjet3d(o13,p20);
+    insererScene(scene,o13);
+
+    translationObjet3d(o14,p30);
+    insererScene(scene,o14);
+
+    translationObjet3d(o15,p31);
+    insererScene(scene,o15);
+   // dessinerObjet3d(surface, o10);
+    // dessinerObjet3d(surface, o11);
     //translationObjet3d(o10,pi);
     //translationObjet3d(o11,pi);
-   // dessinerScene(surface, scene);
+    dessinerScene(surface, scene);
     majEcran(surface);
     pause();
-    //infoTriangle(pfile,t11);
 
     while (i<1000) {
         effacerFenetre(surface, 0);
-        rotationObjet3d(o10,centre10,-2,-1.5,-1);
-        //translationObjet3d(o11,vect);
-        //free(centre11);
-        //centre11 = centreObjet3d(o11);
-        //rotationObjet3d(o11,centre11,2,1.5,1);
+        rotationObjet3dScene(scene,o13,pi,-2,-1.5,-1);
        // translationObjet3d(o10,pi);
         //rotationObjet3d(o11,pi,0,0,0.1);
         //infoTriangle(pfile,t11);
-        dessinerObjet3d(surface, o10);
-        //dessinerObjet3d(surface, o11);
+        dessinerScene(surface, scene);
         majEcran(surface);
         //pause();
         SDL_Delay(1000/60);

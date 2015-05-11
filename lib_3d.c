@@ -53,6 +53,11 @@ t_point3d *definirVecteur3d(double x, double y, double z)	// attention malloc
 	return p;
 }
 
+t_bool egaux(t_point3d * p1, t_point3d * p2)
+{
+	return p1->xyzt[0] == p2->xyzt[0] && p1->xyzt[1] == p2->xyzt[1] && p1->xyzt[2] == p2->xyzt[2];
+}
+
 void __copierPoint3d(t_point3d * src, t_point3d * dest)
 {
 	int i;
