@@ -5,6 +5,7 @@
 #include "lib_2d.h"
 #include "lib_3d.h"
 #include "lib_objet3d.h"
+#include "lib_scene.h"
 
 void pause();
 void infoPoint(FILE *, t_point3d *);
@@ -25,12 +26,14 @@ int main(int argc,char** argv)
 //    t_triangle2d *t1 = definirTriangle2d(p1, p2, p3);
 
    t_point3d *p10 = definirPoint3d(200,200,100), *p20 = definirPoint3d(375,200,25), *p30 = definirPoint3d(450,300,50), *p = definirPoint3d(300,200,0), *p2 = definirPoint3d(400,300,100);
-    t_point3d *p11 = definirPoint3d(200,200,0), *p21 = definirPoint3d(375,200,-25), *p31 = definirPoint3d(450,300,-50), *pi = definirPoint3d(300,300,0);
+    t_point3d *p11 = definirPoint3d(200,200,0), *p21 = definirPoint3d(375,200,-25), *p31 = definirPoint3d(450,300,-50), *pi = definirPoint3d(100,100,100), *pj = definirPoint3d(20,20,20);
    t_triangle3d *t10 = definirTriangle3d(p, p20, p30), *t11 = definirTriangle3d(p,p21,p31);
+    t_point3d *centre10, *centre11, *vect;
 
 //    t_point3d *origine = definirPoint3d(0,0,0), *vecteur;
      t_objet3d *o10 = objet_vide(), *o11 = objet_vide();
      t_maillon * pt_maillon;
+     t_scene * scene = scene_vide();
 
 //    rotationObjet3d(o10, origine, 90, 0,0);
 
@@ -54,29 +57,38 @@ int main(int argc,char** argv)
     c[3] = RC_ORANGE;
     //c[7] = echelle_de_couleur(800);
 
-    //__insere_tete(o10,__cree_maillon(t10,echelle_de_couleur(210)));
-    //__insere_tete(o10,__cree_maillon(t11,echelle_de_couleur(30)));
-
-    o10 = sphere_amiga(300,8,16);
-    //o11 = sapin(200,100);
+    //o10 = (300,3);
+    //o10 = sapin(200,100);
     //libererObjet3d(o10);
-    //o10 = rubiks(200);
+    vect = definirPoint3d(-1,-1.5,0);
+    o10 = damier(300,400,8,10);
+   // translationObjet3d(o10,pj);
+   // insererScene(scene,o10);
+
+    //o11 = sphere(50,2);
+    centre10 = centreObjet3d(o10);
     //infoMaillon(pfile,o10->tete);
-    //o11 = __transfo_face(o10->tete,100*sqrt(2+PHI));
     //infoMaillon(pfile,o11->tete);
     //translationObjet3d(o11,pi);
-    translationObjet3d(o10,pi);
+    //insererScene(scene,o11);
+    //centre11 = centreObjet3d(o11);
+   dessinerObjet3d(surface, o10);
+       // dessinerObjet3d(surface, o11);
+    //translationObjet3d(o10,pi);
     //translationObjet3d(o11,pi);
-    dessinerObjet3d(surface, o10);
-    //dessinerObjet3d(surface, o11);
-   // remplirTriangle3d(surface,o10->tete->face,VERTF);
+   // dessinerScene(surface, scene);
     majEcran(surface);
     pause();
     //infoTriangle(pfile,t11);
 
     while (i<1000) {
         effacerFenetre(surface, 0);
-        rotationObjet3d(o10,pi,2,1.5,1);
+        rotationObjet3d(o10,centre10,-2,-1.5,-1);
+        //translationObjet3d(o11,vect);
+        //free(centre11);
+        //centre11 = centreObjet3d(o11);
+        //rotationObjet3d(o11,centre11,2,1.5,1);
+       // translationObjet3d(o10,pi);
         //rotationObjet3d(o11,pi,0,0,0.1);
         //infoTriangle(pfile,t11);
         dessinerObjet3d(surface, o10);

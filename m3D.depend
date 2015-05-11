@@ -200,24 +200,24 @@
 1416917610 c:\users\id5031\documents\m3d\lib_2d.h
 	"lib_surface.h"
 
-1427221912 source:c:\users\id5031\documents\m3d\lib_3d.c
+1429562541 source:c:\users\id5031\documents\m3d\lib_3d.c
 	"lib_surface.h"
 	"lib_3d.h"
 	"lib_2d.h"
 	"lib_mat.h"
 	<math.h>
 
-1427315904 c:\users\id5031\documents\m3d\lib_3d.h
+1429562459 c:\users\id5031\documents\m3d\lib_3d.h
 	"lib_surface.h"
 
-1416923272 c:\users\id5031\documents\m3d\lib_mat.h
+1429545466 c:\users\id5031\documents\m3d\lib_mat.h
 
-1427139279 source:c:\users\id5031\documents\m3d\lib_mat.c
+1429559599 source:c:\users\id5031\documents\m3d\lib_mat.c
 	"lib_3d.h"
 	"lib_mat.h"
 	<stdio.h>
 
-1428241280 source:c:\users\id5031\documents\m3d\lib_objet3d.c
+1431359870 source:c:\users\id5031\documents\m3d\lib_objet3d.c
 	<assert.h>
 	<math.h>
 	<time.h>
@@ -226,14 +226,14 @@
 	"lib_mat.h"
 	"lib_surface.h"
 
-1427837394 c:\users\id5031\documents\m3d\lib_objet3d.h
+1430751942 c:\users\id5031\documents\m3d\lib_objet3d.h
 	"lib_surface.h"
 	"lib_3d.h"
 
 1405602475 source:c:\users\id5031\documents\m3d\lib_surface.c
 	"lib_surface.h"
 
-1428241377 source:c:\users\id5031\documents\m3d\prog.c
+1430938494 source:c:\users\id5031\documents\m3d\prog.c
 	<stdio.h>
 	<unistd.h>
 	<math.h>
@@ -241,4 +241,14 @@
 	"lib_2d.h"
 	"lib_3d.h"
 	"lib_objet3d.h"
+	"lib_scene.h"
+
+1430938270 source:c:\users\id5031\documents\m3d\lib_scene.c
+	"lib_scene.h"
+
+1431005648 c:\users\id5031\documents\m3d\lib_scene.h
+	"lib_surface.h"
+	"lib_objet3d.h"
+	"lib_3d.h"
+	<stdbool.h>
 

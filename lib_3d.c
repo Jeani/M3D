@@ -5,6 +5,8 @@
 #define M_PI 3.14159265358979323846;
 #include <math.h>
 
+const double mproj[2][4] = {1,0,0,RX/2,0,1,0,RY/2};
+
 typedef struct
 {
 	double m[4][4];
@@ -148,11 +150,32 @@ void __normalisation_vecteur(t_point3d *p3dtmp)
 t_point2d *__conversion_2d_3d(t_point3d *p3d)
 {
     t_point2d *p2d;
+    //double m[2][4];
+    int i, j;
+
+    /* /!\ l'origine en 3D est au centre de l'écran !!! */
+
+    // Définir m[2][4] : (1 0 1/D X/2)
+    //                   (0 1 1/D Y/2)
+    /*m[0][0] = 1;
+    m[0][1] = 0;
+    m[0][2] = 0; // 1/D
+    m[0][3] = RX/2; // X/2
+    m[1][0] = 0;
+    m[1][1] = 1;
+    m[1][2] = 0; // 1/D
+    m[1][3] = RY/2; // Y/2*/
+
 
     p2d = (t_point2d *) malloc(sizeof(t_point2d));
 
-    p2d->x = (int)p3d->xyzt[0];
-    p2d->y = (int)p3d->xyzt[1];
+
+	p2d->x = 0;
+	p2d->y = 0;
+    for(i=0;i<4;i++){
+            p2d->x += (int) mproj[0][i] * p3d->xyzt[i];
+            p2d->y += (int) mproj[1][i] * p3d->xyzt[i];
+    }
 
 	return p2d;
 }

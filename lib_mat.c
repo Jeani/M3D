@@ -26,6 +26,17 @@ void multiplicationMatrice3d(double m1[4][4], double m2[4][4], double m3[4][4]) 
     }
 }
 
+/*void projection(t_point2d *p2d, double m[2][4], t_point3d *p3d) // p2d = m*p3d
+{
+	int i, j;
+	p2d->x = 0;
+	p2d->y = 0;
+    for(i=0;i<4;i++){
+            p2d->x += m[0][i] * p3d->xyzt[i];
+            p2d->y += m[1][i] * p3d->xyzt[i];
+    }
+}*/
+
 void copierMatrice3d(double m1[4][4], double m2[4][4]) // m1 = m2
 {
 	int i, j;

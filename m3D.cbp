@@ -47,6 +47,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="lib_objet3d.h" />
+		<Unit filename="lib_scene.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="lib_scene.h" />
 		<Unit filename="lib_surface.c">
 			<Option compilerVar="CC" />
 		</Unit>

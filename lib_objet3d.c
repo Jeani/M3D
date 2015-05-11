@@ -416,7 +416,8 @@ t_objet3d* sphere(double r, int n)
 	// On part d'un icosaèdre...
     pt_objet = icosaedre(r*2/sqrt(2+PHI));
     // ...puis on divise les triangles en 4 (à chaque passage de boucle)
-    for (i=0;i<n%5;i++) { // /!\ pb de temps de calcul à partir de i<5
+    if (n>5) {n=5;}; // /!\ pb de temps de calcul à partir de i<6
+    for (i=0;i<n;i++) {
         pt_maillon = pt_objet->tete;
         pt_objet = objet_vide();
         while (pt_maillon != NULL) {
@@ -585,16 +586,125 @@ t_objet3d* arbre(double lx, double ly, double lz)
 
 }
 
-t_objet3d* damier(double lx, double lz, double nx, double nz)
+t_objet3d* damier(double Lx, double Ly, double nx, double ny)
 {
 	t_objet3d *pt_objet = NULL;
+	t_triangle3d *t = NULL;
+	t_point3d *tab[4];
+	int i,j;
+	Uint32 c;
+	double lx = Lx/nx;
+	double ly = Ly/ny;
 
 	pt_objet = objet_vide();
 
-	// TODO
+	for (i=0;i<nx;i++) {
+        for (j=0;j<ny;j++) {
+
+            tab[0] = definirPoint3d(i*lx,j*ly,0);
+            tab[1] = definirPoint3d(i*lx,(j+1)*ly,0);
+            tab[2] = definirPoint3d((i+1)*lx,(j+1)*ly,0);
+            tab[3] = definirPoint3d((i+1)*lx,j*ly,0);
+
+            if (i%2 == j%2) {
+                c = NOIR;
+            } else {
+                c = BLANC;
+            }
+
+            t = definirTriangle3d(tab[0],tab[1],tab[2]);
+            __insere_tete(pt_objet,__cree_maillon(t,c));
+            t = definirTriangle3d(tab[0],tab[2],tab[3]);
+            __insere_tete(pt_objet,__cree_maillon(t,c));
+
+        }
+	}
 
 	return pt_objet;
 
+}
+
+double __max(double a, double b, double c)
+{
+    if (a>b) {
+        b = a;
+    }
+    if (b>c) {
+        c = b;
+    }
+    return c;
+}
+
+double __min(double a, double b, double c)
+{
+    if (a<b) {
+        b = a;
+    }
+    if (b<c) {
+        c = b;
+    }
+    return c;
+}
+
+t_point3d *centreObjet3d(t_objet3d *o)
+{
+    // Contiendra les coordonnées max de l'objet
+    t_point3d *p3d_max = NULL;
+    // Contiendra les coordonnées min de l'objet
+    t_point3d *p3d_min = NULL;
+    // Contiendra les coordonnées moyennes de l'objet
+    t_point3d *p3d = NULL;
+    t_maillon *mtmp;
+    t_triangle3d *ttmp;
+    int i,j;
+    // On initialise à l'origine du repère (ie si un objet est vide son centre correspond à l'origine du repère)
+    p3d = definirPoint3d(0, 0, 0);
+
+    if (o != NULL && o->tete != NULL) {
+
+            mtmp = o->tete;
+
+            // init p3d_max et p3d_min
+            ttmp = mtmp->face;
+            p3d_max = definirPoint3d(0, 0, 0);
+            p3d_min = definirPoint3d(0, 0, 0);
+
+            for (i=0;i<3;i++){
+                p3d_max->xyzt[i] = __max( ttmp->abc[0]->xyzt[i], ttmp->abc[1]->xyzt[i], ttmp->abc[2]->xyzt[i]);
+                p3d_min->xyzt[i] = __min( ttmp->abc[0]->xyzt[i], ttmp->abc[1]->xyzt[i], ttmp->abc[2]->xyzt[i]);
+            }
+
+            mtmp = mtmp->pt_suiv;
+
+            // On met dans p3d_min (resp. p3d_max) le min (resp. max) de chaque coordonnées de l'ensemble des sommets de l'objet
+            while(mtmp != NULL) {
+                ttmp = mtmp->face;
+                // On compare chaque coordonnée des 3 pts du triangle en cours aux coordonnées min/max
+                for (i=0;i<3;i++){
+                    for (j=0;j<3;j++){
+                        if (p3d_max->xyzt[i] < ttmp->abc[j]->xyzt[i]){
+                            p3d_max->xyzt[i] = ttmp->abc[j]->xyzt[i];
+                        }
+                        if (p3d_min->xyzt[i] > ttmp->abc[j]->xyzt[i]){
+                            p3d_min->xyzt[i] = ttmp->abc[j]->xyzt[i];
+                        }
+
+                    }
+                }
+                mtmp = mtmp->pt_suiv;
+            }
+
+            // On insère dans p3d les coordonnées moyennes de l'objet
+            for (i=0;i<3;i++){
+                p3d->xyzt[i] = (p3d_max->xyzt[i] + p3d_min->xyzt[i])/2;
+            }
+
+            // On libère les points temp
+            free(p3d_max);
+            free(p3d_min);
+    }
+
+    return p3d;
 }
 
 t_objet3d *copierObjet3d(t_objet3d *o) // attention, effectue une copie mirroir
@@ -750,13 +860,21 @@ void translationObjet3d(t_objet3d* pt_objet, t_point3d *vecteur)
 void rotationObjet3d(t_objet3d* pt_objet, t_point3d *centre, float degreX, float degreY, float degreZ)
 {
     double m[4][4];
+    double mres[4][4];
+    double mtmp[4][4];
     int i,j;
     float theta;
     __init_m(m);
     m[3][3] = 1;
 
-    __inversion_3(centre);
-	translationObjet3d(pt_objet,centre);
+    /* A améliorer : multiplier les matrices avant de faire la transfo !!! */
+
+   // 1ere translation
+	__init_m(mres);
+    for(i=0;i<4;i++){
+        mres[i][3] = centre->xyzt[i];
+        mres[i][i] = 1;
+    }
 
 	// initialisation de la matrice de rotation selon x
 	theta = __conversion_deg_rad(degreX);
@@ -765,7 +883,7 @@ void rotationObjet3d(t_objet3d* pt_objet, t_point3d *centre, float degreX, float
     m[1][2] = -1*sin(theta);
     m[2][1] = sin(theta);
     m[2][2] = cos(theta);
-    transformationObjet3d(pt_objet,m);
+    multiplicationMatrice3d(mtmp,mres,m);
 
     // initialisation de la matrice de rotation selon y
     theta = __conversion_deg_rad(degreY);
@@ -779,7 +897,7 @@ void rotationObjet3d(t_objet3d* pt_objet, t_point3d *centre, float degreX, float
     m[1][1] = 1;
     m[2][0] = sin(theta);
     m[2][2] = cos(theta);
-    transformationObjet3d(pt_objet,m);
+    multiplicationMatrice3d(mres,mtmp,m);
 
     // initialisation de la matrice de rotation selon z
     theta = __conversion_deg_rad(degreZ);
@@ -793,10 +911,21 @@ void rotationObjet3d(t_objet3d* pt_objet, t_point3d *centre, float degreX, float
     m[1][0] = sin(theta);
     m[1][1] = cos(theta);
     m[2][2] = 1;
-    transformationObjet3d(pt_objet,m);
+    multiplicationMatrice3d(mtmp,mres,m);
 
+
+    // Matrice de remise en place de l'objet
     __inversion_3(centre);
-	translationObjet3d(pt_objet,centre);
+	__init_m(m);
+    for(i=0;i<4;i++){
+        m[i][3] = centre->xyzt[i];
+        m[i][i] = 1;
+    }
+    multiplicationMatrice3d(mres,mtmp,m);
+    __inversion_3(centre);
+
+    // On applique une tranformation à l'aide de la matrice de rotation mres
+     transformationObjet3d(pt_objet,mres);
 
 	// Seule la rotation modifie le zmoyen d'un triangle
 	pt_objet->est_trie = false;

@@ -68,11 +68,14 @@ t_objet3d* tetraedre(double a);
 t_objet3d* icosaedre(double a);
 
 /*
-  Crée une sphère de rayon r pour une précision n allant de 0 (icosaèdre) à 4
+  Crée une sphère de rayon r pour une précision n allant de 0 (icosaèdre) à 5
   La sphère est centrée à l'origine.
 */
 t_objet3d* sphere(double r, int n);
-
+/*
+  Crée une sphère amige de rayon r possèdant nlat triangles en latitude et nlong triangles en longitude
+  La sphère est centrée à l'origine.
+*/
 t_objet3d* sphere_amiga(double r, double nlat, double nlong);
 t_objet3d* sapin(double h, double l);
 t_objet3d* arbre(double lx, double ly, double lz);
@@ -80,6 +83,7 @@ t_objet3d* damier(double lx, double lz, double nx, double nz);
 
 void dessinerObjet3d(t_surface *surface, t_objet3d* pt_objet);
 
+t_point3d *centreObjet3d(t_objet3d *o);
 t_objet3d *copierObjet3d(t_objet3d *o); // attention, effectue une copie
 void composerObjet3d(t_objet3d* o, t_objet3d* o2); // o = o + o2
 void libererObjet3d(t_objet3d *o);
