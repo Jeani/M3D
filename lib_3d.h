@@ -1,10 +1,12 @@
 #ifndef _LIB_3D_H_
 #define _LIB_3D_H_
 
-#include "lib_surface.h"
+#include "lib_2d.h"
 
-#define D 1
+#define D 3
 #define ZOOM 500
+
+double X, Y;
 
 typedef enum {
 	false=0, true

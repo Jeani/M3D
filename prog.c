@@ -6,11 +6,13 @@
 #include "lib_3d.h"
 #include "lib_objet3d.h"
 #include "lib_scene.h"
+#include "lib_mat.h"
 
 void pause();
 void infoPoint(FILE *, t_point3d *);
 void infoTriangle(FILE *, t_triangle3d *);
 void infoMaillon (FILE * pf, t_maillon * pt_maillon);
+void infoScene (FILE * pf, t_scene * pt_scene);
 
 int main(int argc,char** argv)
 {
@@ -20,23 +22,22 @@ int main(int argc,char** argv)
     int timestart;
     char buf[50];
     double PHI = (1+sqrt(5))/2;
+    X = RX/2;
+    Y = RY/2;
 
-
-//    t_point2d *p1 = definirPoint2d(10,50), *p2 = definirPoint2d(100,240), *p3 = definirPoint2d(50,300);
-//    t_triangle2d *t1 = definirTriangle2d(p1, p2, p3);
-
-   t_point3d *p10 = definirPoint3d(200,200,100), *p20 = definirPoint3d(375,200,25), *p30 = definirPoint3d(-50,0,50), *p = definirPoint3d(300,200,0), *p2 = definirPoint3d(400,300,100);
-    t_point3d *p11 = definirPoint3d(200,200,0), *p21 = definirPoint3d(375,200,-25), *p31 = definirPoint3d(-100,-50,-50), *pi = definirPoint3d(100,100,100), *pj = definirPoint3d(75,75,115);
+   t_point3d *p10 = definirPoint3d(200,200,300), *p20 = definirPoint3d(375,200,25), *p30 = definirPoint3d(-50,0,50), *p = definirPoint3d(300,200,0), *p2 = definirPoint3d(1,2,1);
+    t_point3d *p11 = definirPoint3d(200,200,0), *p21 = definirPoint3d(375,200,-25), *p31 = definirPoint3d(0,0,-50), *pi = definirPoint3d(100,100,100), *pj = definirPoint3d(75,75,115);
    t_triangle3d *t10 = definirTriangle3d(p, p20, p30), *t11 = definirTriangle3d(p,p21,p31);
-    t_point3d *centre10, *centre11, *vect;
+    t_point3d *centre10, *centre11, *vect, *vect2, *v1, *v2;
 
-//    t_point3d *origine = definirPoint3d(0,0,0), *vecteur;
+   t_point3d *origine = definirPoint3d(0,0,0), *vecteur;
      t_objet3d *o10 = objet_vide(), *o11 = objet_vide(), *o12 = objet_vide(), *o13 = objet_vide(), *o14 = objet_vide(), *o15 = objet_vide();
      t_maillon * pt_maillon;
      t_scene * scene = scene_vide();
 
 //    rotationObjet3d(o10, origine, 90, 0,0);
 
+    double ps = 50;
     int i=0;
     int lx = 50;
     int ly = 80;
@@ -60,8 +61,10 @@ int main(int argc,char** argv)
     //o10 = (300,3);
     //o10 = sapin(200,100);
     //libererObjet3d(o10);
-    vect = definirPoint3d(-1,-1.5,0);
-    o10 = sphere(50,2);
+    v1 = definirPoint3d(2,50,-3);
+    vect = definirPoint3d(0,0,-1);
+    //vect2 = definirPoint3d(0,0,2);
+    o10 = sphere(50,1);
     o11 = carre(50,RC_ORANGE);
     o12 = parallelepipede(50,70,1000,c);
     o13 = sphere(70,2);
@@ -85,17 +88,29 @@ int main(int argc,char** argv)
 
     translationObjet3d(o15,p31);
     insererScene(scene,o15);
+    infoScene(pfile,scene);
    // dessinerObjet3d(surface, o10);
     // dessinerObjet3d(surface, o11);
     //translationObjet3d(o10,pi);
     //translationObjet3d(o11,pi);
+   // fprintf(pfile, "%lf", prod_scal(p2,vect));
     dessinerScene(surface, scene);
     majEcran(surface);
     pause();
+    /*effacerFenetre(surface, 0);
+    rotationScene(&scene,origine,0,0,180);
+    infoScene(pfile,scene);
+    dessinerScene(surface, scene);
+    majEcran(surface);
+    pause();*/
 
     while (i<1000) {
         effacerFenetre(surface, 0);
-        rotationObjet3dScene(scene,o13,pi,-2,-1.5,-1);
+        rotationScene(&scene,pi,2,-1.5,-1);
+        //rotationObjet3dScene(scene,o13,pi,-2,-1.5,-1);
+        //translationScene(&scene,vect);
+        //infoScene(pfile,scene);
+       // translationObjet3dScene(scene,o10,vect2);
        // translationObjet3d(o10,pi);
         //rotationObjet3d(o11,pi,0,0,0.1);
         //infoTriangle(pfile,t11);
@@ -224,5 +239,19 @@ void infoMaillon (FILE * pf, t_maillon * pt_maillon) {
         fprintf(pf, "pt_suiv : NULL\n");
     } else {
         fprintf(pf, "pt_suiv : %p\n",pt_maillon->pt_suiv);
+    }
+}
+
+void infoScene (FILE * pf, t_scene * pt_scene) {
+    if (pt_scene == NULL) {
+        fprintf(pf, "NULL");
+    } else {
+        fprintf(pf, "<");
+        infoPoint(pf,pt_scene->centre);
+        fprintf(pf, ",");
+        infoScene(pf,pt_scene->objet_suiv_g);
+        fprintf(pf, ",");
+        infoScene(pf,pt_scene->objet_suiv_d);
+        fprintf(pf, ">");
     }
 }

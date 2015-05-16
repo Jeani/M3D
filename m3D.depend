@@ -1,9 +1,9 @@
 # depslib dependency file v1.0
-1416925278 source:c:\users\id5031\documents\m3d\lib_2d.c
+1431707938 source:c:\users\id5031\documents\m3d\lib_2d.c
 	"lib_surface.h"
 	"lib_2d.h"
 
-1427833071 c:\users\id5031\documents\m3d\lib_surface.h
+1431708488 c:\users\id5031\documents\m3d\lib_surface.h
 	<stdlib.h>
 	<SDL/SDL.h>
 
@@ -200,40 +200,33 @@
 1416917610 c:\users\id5031\documents\m3d\lib_2d.h
 	"lib_surface.h"
 
-1431372085 source:c:\users\id5031\documents\m3d\lib_3d.c
-	"lib_surface.h"
+1431724848 source:c:\users\id5031\documents\m3d\lib_3d.c
 	"lib_3d.h"
-	"lib_2d.h"
 	"lib_mat.h"
 	<math.h>
 
-1431372062 c:\users\id5031\documents\m3d\lib_3d.h
-	"lib_surface.h"
+1431709112 c:\users\id5031\documents\m3d\lib_3d.h
+	"lib_2d.h"
 
-1429545466 c:\users\id5031\documents\m3d\lib_mat.h
-
-1429559599 source:c:\users\id5031\documents\m3d\lib_mat.c
+1431716353 c:\users\id5031\documents\m3d\lib_mat.h
 	"lib_3d.h"
-	"lib_mat.h"
-	<stdio.h>
 
-1431359870 source:c:\users\id5031\documents\m3d\lib_objet3d.c
+1431776051 source:c:\users\id5031\documents\m3d\lib_mat.c
+	"lib_mat.h"
+
+1431797716 source:c:\users\id5031\documents\m3d\lib_objet3d.c
 	<assert.h>
 	<math.h>
 	<time.h>
-	"lib_3d.h"
 	"lib_objet3d.h"
-	"lib_mat.h"
-	"lib_surface.h"
 
-1431372031 c:\users\id5031\documents\m3d\lib_objet3d.h
-	"lib_surface.h"
+1431707536 c:\users\id5031\documents\m3d\lib_objet3d.h
 	"lib_3d.h"
 
 1405602475 source:c:\users\id5031\documents\m3d\lib_surface.c
 	"lib_surface.h"
 
-1431373184 source:c:\users\id5031\documents\m3d\prog.c
+1431796878 source:c:\users\id5031\documents\m3d\prog.c
 	<stdio.h>
 	<unistd.h>
 	<math.h>
@@ -242,13 +235,14 @@
 	"lib_3d.h"
 	"lib_objet3d.h"
 	"lib_scene.h"
+	"lib_mat.h"
 
-1431373013 source:c:\users\id5031\documents\m3d\lib_scene.c
+1431798102 source:c:\users\id5031\documents\m3d\lib_scene.c
 	"lib_scene.h"
 
-1431367279 c:\users\id5031\documents\m3d\lib_scene.h
-	"lib_surface.h"
+1431791564 c:\users\id5031\documents\m3d\lib_scene.h
 	"lib_objet3d.h"
-	"lib_3d.h"
+	"lib_mat.h"
 	<stdbool.h>
+	<math.h>
 

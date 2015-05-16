@@ -1,6 +1,4 @@
-#include "lib_3d.h"
 #include "lib_mat.h"
-#include <stdio.h>
 
 void multiplicationVecteur3d(t_point3d *v1, double m[4][4], t_point3d *v2) // v1 = m*v2
 {
@@ -24,6 +22,18 @@ void multiplicationMatrice3d(double m1[4][4], double m2[4][4], double m3[4][4]) 
             }
         }
     }
+}
+
+double prod_scal (t_point3d *v1,t_point3d *v2)
+{
+    double p = 0;
+    int i;
+
+    for (i=0;i<3;i++){
+        p += v1->xyzt[i] * v2->xyzt[i];
+    }
+
+    return p;
 }
 
 /*void projection(t_point2d *p2d, double m[2][4], t_point3d *p3d) // p2d = m*p3d

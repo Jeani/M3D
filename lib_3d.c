@@ -1,11 +1,9 @@
-#include "lib_surface.h"
 #include "lib_3d.h"
-#include "lib_2d.h"
 #include "lib_mat.h"
 #define M_PI 3.14159265358979323846;
 #include <math.h>
 
-const double mproj[2][4] = {1,0,0,RX/2,0,1,0,RY/2};
+// const double mtrans[4][4] = {1,0,0,0,0,1,0,0,0,0,1,0,0,0,1/D,0};
 
 typedef struct
 {
@@ -154,14 +152,17 @@ void __normalisation_vecteur(t_point3d *p3dtmp)
 
 t_point2d *__conversion_2d_3d(t_point3d *p3d)
 {
+    //t_point3d *p3dtmp;
     t_point2d *p2d;
+    double mproj[2][4] = {{1,0,0,X},{0,1,0,Y}};
     //double m[2][4];
-    int i, j;
+    int i;//, j;
 
     /* /!\ l'origine en 3D est au centre de l'écran !!! */
 
-    // Définir m[2][4] : (1 0 1/D X/2)
-    //                   (0 1 1/D Y/2)
+    // Définir m[2][4] : (1 0 0 X/2)
+    //                   (0 1 0 Y/2)
+
     /*m[0][0] = 1;
     m[0][1] = 0;
     m[0][2] = 0; // 1/D
@@ -171,16 +172,21 @@ t_point2d *__conversion_2d_3d(t_point3d *p3d)
     m[1][2] = 0; // 1/D
     m[1][3] = RY/2; // Y/2*/
 
+    /*p3dtmp = definirPoint3d(0,0,0);
+    multiplicationVecteur3d(p3dtmp,mtrans,p3d);
+    if (p3dtmp->xyzt[3] != 0) {
+        __normalisation_vecteur(p3dtmp);
+    }*/
 
     p2d = (t_point2d *) malloc(sizeof(t_point2d));
-
-
 	p2d->x = 0;
 	p2d->y = 0;
     for(i=0;i<4;i++){
-            p2d->x += (int) mproj[0][i] * p3d->xyzt[i];
-            p2d->y += (int) mproj[1][i] * p3d->xyzt[i];
+            p2d->x += (int) mproj[0][i] * p3d->xyzt[i]; //p3d à changer en p3dtmp
+            p2d->y += (int) mproj[1][i] * p3d->xyzt[i]; //p3d à changer en p3dtmp
     }
+
+    //free(p3dtmp);
 
 	return p2d;
 }

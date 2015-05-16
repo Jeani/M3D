@@ -1,10 +1,7 @@
 #include <assert.h>
 #include <math.h>
 #include <time.h>
-#include "lib_3d.h"
 #include "lib_objet3d.h"
-#include "lib_mat.h"
-#include "lib_surface.h"
 
 const double PHI = (1+sqrt(5))/2;
 
@@ -397,10 +394,10 @@ t_objet3d* __transfo_face(t_maillon *pt_maillon,double r)
 
     // On libère l'ancien triangle
     libererTriangle3d(pt_maillon->face);
-    // Et les points du tableau
-    for (i=0;i<6;i++) {
-        free(tab[i]);
-    }
+    // Et les points du tableau (non déjà libérés)
+    free(tab[1]);
+    free(tab[3]);
+    free(tab[5]);
 
 	return pt_objet;
 }
@@ -866,8 +863,6 @@ void rotationObjet3d(t_objet3d* pt_objet, t_point3d *centre, float degreX, float
     float theta;
     __init_m(m);
     m[3][3] = 1;
-
-    /* A améliorer : multiplier les matrices avant de faire la transfo !!! */
 
    // 1ere translation
 	__init_m(mres);

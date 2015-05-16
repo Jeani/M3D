@@ -1,7 +1,6 @@
 #ifndef _LIB_OBJET3D_H_
 #define _LIB_OBJET3D_H_
 
-#include "lib_surface.h"
 #include "lib_3d.h"
 
 typedef struct __liste3d t_maillon;
